@@ -6,6 +6,7 @@ import {
   Terminal,
   type Token,
 } from "../_components/code";
+import { icons } from "../_components/icons";
 
 function buildLines(): Token[][] {
   const field = (key: string, value: string): Token[] => [
@@ -13,6 +14,30 @@ function buildLines(): Token[][] {
     ["string", quote(value)],
     ["plain", ","],
   ];
+
+  // Long strings wrap into `"…" +` pieces, the way Prettier would print them.
+  const wrappedField = (key: string, value: string, width = 56): Token[][] => {
+    const pieces: string[] = [];
+    let current = "";
+    for (const word of value.split(" ")) {
+      if (current && current.length + word.length + 1 > width) {
+        pieces.push(`${current} `);
+        current = word;
+      } else {
+        current = current ? `${current} ${word}` : word;
+      }
+    }
+    pieces.push(current);
+
+    return [
+      [["plain", `  ${key}:`]],
+      ...pieces.map((piece, i): Token[] => [
+        ["plain", "    "],
+        ["string", quote(piece)],
+        ["plain", i < pieces.length - 1 ? " +" : ","],
+      ]),
+    ];
+  };
 
   const stackRows = chunk(about.stack, 3).map((row): Token[] => [
     ["plain", "    "],
@@ -30,7 +55,7 @@ function buildLines(): Token[][] {
       ["plain", " = {"],
     ],
     field("name", about.name),
-    field("bio", about.bio),
+    ...wrappedField("bio", about.bio),
     field("role", about.role),
     field("location", about.location),
     [["plain", "  stack: ["]],
@@ -63,7 +88,16 @@ export default function About() {
         command="npm run hire-me"
         note="— opening mail…"
         href={`mailto:${site.email}`}
-      />
+      >
+        {/* Phones get a proper tap target; desktop keeps the prompt link. */}
+        <a
+          href={`mailto:${site.email}`}
+          className="mt-2 flex w-full items-center justify-center gap-2.5 rounded-lg border border-border py-3 text-text transition-colors hover:bg-selected/50 focus-visible:outline-2 focus-visible:outline-accent md:hidden"
+        >
+          {icons.mail}
+          Get in touch
+        </a>
+      </Terminal>
     </>
   );
 }

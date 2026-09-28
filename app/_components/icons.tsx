@@ -76,6 +76,19 @@ export const icons = {
       <path d="m2 4 6 5 6-5" />
     </svg>
   ),
+  menu: (
+    <svg
+      className="h-6 w-6"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <path d="M4 7h16M4 12h16M4 17h16" />
+    </svg>
+  ),
   close: (
     <svg
       className="h-[0.9em] w-[0.9em]"

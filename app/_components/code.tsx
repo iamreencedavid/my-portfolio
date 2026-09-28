@@ -70,7 +70,7 @@ export function CodeView({
   cursor?: boolean;
 }) {
   return (
-    <pre className="mb-10 overflow-x-auto text-[15px] leading-8 sm:text-lg sm:leading-9 lg:text-xl lg:leading-10 xl:text-2xl xl:leading-[2.75rem]">
+    <pre className="mb-6 overflow-x-auto md:mb-10 md:min-h-0 md:flex-1 md:overflow-y-autotext-[13px] leading-6 sm:text-sm sm:leading-7 lg:text-base lg:leading-8 xl:text-lg xl:leading-9">
       <code>
         {lines.map((tokens, i) => {
           const last = i === lines.length - 1;
@@ -139,8 +139,8 @@ export function Terminal({
   );
 
   return (
-    <div className="mt-auto border-t border-border pt-6 text-[15px] sm:text-lg lg:text-xl">
-      <p className="mb-4 flex justify-between text-sm tracking-wider text-muted lg:text-base">
+    <div className="mt-auto shrink-0 border-t border-border pt-4 text-[13px] sm:text-lg md:pt-6 lg:text-xl">
+      <p className="mb-3 flex justify-between text-xs tracking-wider text-muted sm:mb-4 sm:text-sm lg:text-base">
         TERMINAL
         {label && <span className="tracking-normal">{label}</span>}
       </p>

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/about";
 import { fileForPath, files, type FileName } from "./files";
 import { icons } from "./icons";
@@ -13,6 +13,43 @@ export function WindowTitle() {
     <span className="truncate text-sm text-muted lg:text-base">
       {site.owner} — {active?.name ?? "portfolio"}
     </span>
+  );
+}
+
+// Phone tabs: every file as a pill, always shown, so they double as navigation.
+export function MobileTabs() {
+  const pathname = usePathname();
+  const active = fileForPath(pathname);
+  const activeRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  }, [pathname]);
+
+  return (
+    <nav
+      aria-label="Pages"
+      className="flex gap-2 overflow-x-auto border-b border-border px-5 pt-1 pb-3 scrollbar-none md:hidden"
+    >
+      {files.map((f) => {
+        const isActive = f.name === active?.name;
+        return (
+          <Link
+            key={f.name}
+            ref={isActive ? activeRef : undefined}
+            href={f.href}
+            aria-current={isActive ? "page" : undefined}
+            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-accent ${
+              isActive
+                ? "border-accent/40 bg-selected text-accent"
+                : "border-border text-text hover:bg-selected/50"
+            }`}
+          >
+            {f.name}
+          </Link>
+        );
+      })}
+    </nav>
   );
 }
 
@@ -42,7 +79,7 @@ export function EditorTabs() {
   return (
     <nav
       aria-label="Open editors"
-      className="flex overflow-x-auto border-b border-border text-sm lg:text-lg"
+      className="hidden overflow-x-auto border-b border-border text-sm md:flex lg:text-lg"
     >
       {files
         .filter((f) => open.includes(f.name))

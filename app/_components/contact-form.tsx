@@ -9,21 +9,21 @@ const prompts = [
     label: "your name",
     type: "text",
     autoComplete: "name",
-    placeholder: "Jamie Cruz",
+    placeholder: "Reence David",
   },
   {
     name: "email",
     label: "your email",
     type: "email",
     autoComplete: "email",
-    placeholder: "jamie@company.io",
+    placeholder: "david.reence@gmail.com",
   },
   {
     name: "message",
     label: "message",
     type: "text",
     autoComplete: "off",
-    placeholder: "We're hiring a senior eng…",
+    placeholder: "Open for a new opportunity.",
   },
 ] as const;
 

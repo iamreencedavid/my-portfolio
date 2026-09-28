@@ -3,30 +3,51 @@
 export const experience = {
   roles: [
     {
-      title: "Senior engineer",
-      company: "Stripe-like Co.",
-      period: "2022 — present",
-      location: "Remote",
+      title: "Senior Full-stack Engineer",
+      company: "Officeworks",
+      period: "2024 — Present",
+      location: "Manila (Australia) | Hybrid",
       highlights: [
-        "Rebuilt payments dashboard, **-40% load**",
-        "Mentored 4 engineers",
-        "Stack: `React` `Go` `AWS`",
+        "E-commerce platform development and maintenance",
+        "Stack: `Typescript` `React` `Node.js` `AWS` `Microservices`",
       ],
     },
     {
-      title: "Software engineer",
-      company: "Startup",
-      period: "2019 — 2022",
-      location: "Manila",
+      title: "Senior Full-stack Engineer",
+      company: "Emersion",
+      period: "2022 — 2024",
+      location: "Australia | Remote",
       highlights: [
-        "Built core API from zero to **1M req/day**",
-        "Set up CI/CD and test culture",
+        "Fintech",
+        "Stack: `Typescript` `Vue.js` `Laravel` `AWS` `PHP`",
+      ],
+    },
+    {
+      title: "Senior Software Engineer",
+      company: "Digital Central (Cloudstaff)",
+      period: "2017 — 2022",
+      location: "Pampanga (Australia) | Office",
+      highlights: [
+        "Real estate and property management",
+        "Stack: `Typescript` `React` `Laravel`  `Codeigniter` `AWS` `PHP`",
+      ],
+    },
+    {
+      title: "Regional Software Developer ",
+      company: "CXC Global",
+      period: "2016 — 2017",
+      location: "Clark Pampanga | Office",
+      highlights: [
+        "Real estate and property management",
+        "Stack:  `Laravel` `Codeigniter` `PHP` `Wordpress`",
       ],
     },
   ],
   careerLog: [
-    { hash: "e3f9a1c", message: "feat: promoted to senior engineer" },
-    { hash: "b72d04e", message: "feat: shipped first API to prod" },
+    {
+      hash: "e3f9a1c",
+      message: "feat: current role is senior full-stack engineer",
+    },
     { hash: "1a0c5f2", message: "init: hello, world" },
   ],
 };

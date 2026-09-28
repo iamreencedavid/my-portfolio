@@ -1,9 +1,10 @@
 // Contact data rendered in the editor pane as `contact.sh`.
 // The email lives in `site.email` (content/about.ts).
 export const contact = {
-  tagline: "let's build something together",
-  github: "github.com/alexrivera",
-  linkedin: "in/alexrivera",
+  tagline:
+    "I don’t just build software—I build solutions that solve real business problems.",
+  github: "https://github.com/iamreencedavid",
+  linkedin: "https://www.linkedin.com/in/reence-david-a3276898/",
   replyNote: "Replies within 24h",
   resume: "/resume.pdf",
 };

@@ -1,13 +1,20 @@
 import { site } from "@/content/about";
-import { EditorTabs, WindowTitle } from "../_components/editor-tabs";
+import {
+  EditorTabs,
+  MobileTabs,
+  WindowTitle,
+} from "../_components/editor-tabs";
 import { Explorer } from "../_components/explorer";
+import { MobileHeader } from "../_components/mobile-header";
 
 export default function EditorLayout({ children }: LayoutProps<"/">) {
   return (
-    <main className="flex min-h-screen flex-1">
+    <main className="flex min-h-dvh md:h-dvh md:overflow-hidden">
       <div className="flex w-full flex-col bg-window">
+        <MobileHeader />
+
         {/* Title bar */}
-        <header className="flex items-center gap-4 border-b border-border px-4 py-3.5 sm:px-8">
+        <header className="hidden items-center gap-4 border-b border-border px-8 py-3.5 md:flex">
           <div className="flex gap-2" aria-hidden>
             <span className="h-3.5 w-3.5 rounded-full bg-light-close" />
             <span className="h-3.5 w-3.5 rounded-full bg-light-min" />
@@ -16,9 +23,9 @@ export default function EditorLayout({ children }: LayoutProps<"/">) {
           <WindowTitle />
         </header>
 
-        <div className="flex flex-1 flex-col md:flex-row">
+        <div className="flex flex-1 flex-col md:min-h-0 md:flex-row">
           {/* Sidebar */}
-          <aside className="border-b border-border px-6 py-8 md:w-80 md:shrink-0 md:border-r md:border-b-0 md:px-8 md:py-10 lg:w-96 xl:w-md">
+          <aside className="hidden w-80 shrink-0 border-r border-border px-8 py-10 md:block lg:w-96 xl:w-md">
             <h1 className="font-sans text-5xl font-medium tracking-tight text-text lg:text-6xl">
               {site.brand}
             </h1>
@@ -35,9 +42,10 @@ export default function EditorLayout({ children }: LayoutProps<"/">) {
           </aside>
 
           {/* Editor */}
-          <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex min-w-0 flex-1 flex-col md:min-h-0">
+            <MobileTabs />
             <EditorTabs />
-            <section className="flex flex-1 flex-col px-4 pt-8 pb-24 sm:px-8 md:py-10 lg:px-12">
+            <section className="flex flex-1 flex-col px-4 py-5 sm:px-8 md:min-h-0 md:py-10 lg:px-12">
               {children}
             </section>
           </div>
