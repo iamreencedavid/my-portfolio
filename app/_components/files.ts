@@ -3,6 +3,7 @@ export const files = [
   { name: "about.ts", href: "/", closable: false },
   { name: "skills.json", href: "/skills", closable: true },
   { name: "experience.md", href: "/experience", closable: true },
+  { name: "PROJECT REPO", href: "/projects", closable: true },
   { name: "contact.sh", href: "/contact", closable: true },
 ] as const;
 

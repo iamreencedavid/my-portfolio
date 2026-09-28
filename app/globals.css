@@ -85,7 +85,13 @@ body {
 
 /* Unfilled segment of a skill level bar: dithered, like the reference. */
 .level-empty {
-  background: repeating-conic-gradient(var(--muted) 0 25%, transparent 0 50%)
-    0 0 / 4px 4px;
+  background: repeating-conic-gradient(var(--muted) 0 25%, transparent 0 50%) 0
+    0 / 4px 4px;
   opacity: 0.7;
+}
+
+/* Already booted this session (set by the inline script in layout.tsx):
+   hide the loading screen before hydration so it never flashes. */
+[data-booted] .boot-screen {
+  display: none;
 }

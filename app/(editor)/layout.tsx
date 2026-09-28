@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/content/about";
 import {
   EditorTabs,
@@ -5,7 +6,9 @@ import {
   WindowTitle,
 } from "../_components/editor-tabs";
 import { Explorer } from "../_components/explorer";
+import { files } from "../_components/files";
 import { MobileHeader } from "../_components/mobile-header";
+import { Watermark } from "../_components/watermark";
 
 export default function EditorLayout({ children }: LayoutProps<"/">) {
   return (
@@ -27,7 +30,12 @@ export default function EditorLayout({ children }: LayoutProps<"/">) {
           {/* Sidebar */}
           <aside className="hidden w-80 shrink-0 border-r border-border px-8 py-10 md:block lg:w-96 xl:w-md">
             <h1 className="font-sans text-5xl font-medium tracking-tight text-text lg:text-6xl">
-              {site.brand}
+              <Link
+                href={files[0].href}
+                className="rounded focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+              >
+                {site.brand}
+              </Link>
             </h1>
             {site.available && (
               <p className="mt-4 flex items-center gap-2.5 text-base text-online lg:text-lg">
@@ -45,8 +53,10 @@ export default function EditorLayout({ children }: LayoutProps<"/">) {
           <div className="flex min-w-0 flex-1 flex-col md:min-h-0">
             <MobileTabs />
             <EditorTabs />
-            <section className="flex flex-1 flex-col px-4 py-5 sm:px-8 md:min-h-0 md:py-10 lg:px-12">
+            <section className="relative isolate flex flex-1 flex-col px-4 py-5 sm:px-8 md:min-h-0 md:py-10 lg:px-12">
               {children}
+              {/* Desktop only: signed in the terminal's bottom-right corner, behind its content. */}
+              <Watermark className="absolute right-8 bottom-6 -z-10 hidden w-44 md:block lg:right-12 lg:w-52" />
             </section>
           </div>
         </div>

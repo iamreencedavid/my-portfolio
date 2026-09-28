@@ -17,7 +17,8 @@ type Kind =
   | "inline"
   | "bar";
 // A "bar" token's text is the level, rendered as a SKILL_MAX-segment meter.
-export type Token = [Kind, string];
+// An optional third item turns the token into an external link.
+export type Token = [Kind, string, href?: string];
 
 const tokenClass: Record<Kind, string> = {
   keyword: "text-syn-keyword",
@@ -70,7 +71,7 @@ export function CodeView({
   cursor?: boolean;
 }) {
   return (
-    <pre className="mb-6 overflow-x-auto md:mb-10 md:min-h-0 md:flex-1 md:overflow-y-autotext-[13px] leading-6 sm:text-sm sm:leading-7 lg:text-base lg:leading-8 xl:text-lg xl:leading-9">
+    <pre className="mb-6 overflow-x-auto md:mb-10 md:min-h-0 md:flex-1 md:overflow-y-auto text-[13px] leading-6 sm:text-sm sm:leading-7 lg:text-base lg:leading-8 xl:text-lg xl:leading-9">
       <code>
         {lines.map((tokens, i) => {
           const last = i === lines.length - 1;
@@ -84,9 +85,19 @@ export function CodeView({
                 {i + 1}
               </span>
               <span className="whitespace-pre">
-                {tokens.map(([kind, text], j) =>
+                {tokens.map(([kind, text, href], j) =>
                   kind === "bar" ? (
                     <LevelBar key={j} level={Number(text)} />
+                  ) : href ? (
+                    <a
+                      key={j}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${tokenClass[kind]} underline decoration-current/40 underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-accent`}
+                    >
+                      {text}
+                    </a>
                   ) : (
                     <span key={j} className={tokenClass[kind]}>
                       {text}
@@ -110,6 +121,7 @@ export function CodeView({
 
 export function Terminal({
   command,
+  cwd = "~",
   note,
   href,
   output,
@@ -117,6 +129,7 @@ export function Terminal({
   children,
 }: {
   command: string;
+  cwd?: string;
   note?: string;
   href?: string;
   output?: ReactNode;
@@ -126,7 +139,7 @@ export function Terminal({
   const prompt = (
     <>
       <span className="text-online">→</span>
-      <span className="text-syn-ident">~</span>
+      <span className="text-syn-ident">{cwd}</span>
       <span
         className={
           href ? "group-hover:underline group-focus-visible:underline" : ""

@@ -1,10 +1,12 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/content/about";
 import { ThemeSwitch } from "../theme-settings";
 import { Explorer } from "./explorer";
+import { files } from "./files";
 import { icons } from "./icons";
 
 // Phone-sized header: brand on the left, a menu that drops the explorer down.
@@ -33,7 +35,12 @@ export function MobileHeader() {
       <header className="relative z-40 flex items-start justify-between gap-4 bg-window px-5 pt-5 pb-3 md:hidden">
         <div>
           <h1 className="font-sans text-3xl font-medium tracking-tight text-text">
-            {site.brand}
+            <Link
+              href={files[0].href}
+              className="rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            >
+              {site.brand}
+            </Link>
           </h1>
           {site.available && (
             <p className="mt-1 flex items-center gap-2 text-sm text-online">
@@ -58,7 +65,7 @@ export function MobileHeader() {
             id="mobile-drawer"
             className="absolute inset-x-0 top-full max-h-[75dvh] overflow-y-auto border-y border-border bg-window px-5 pb-6 [&>nav]:mt-2"
           >
-            <Explorer />
+            <Explorer projectsOpen={false} />
             <div className="mt-6 border-t border-border pt-5">
               <ThemeSwitch />
             </div>

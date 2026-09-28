@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { site } from "@/content/about";
+import { BootScreen } from "./boot-screen";
 import { ThemeSettings } from "./theme-settings";
 import "./globals.css";
 
@@ -30,13 +31,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})()`,
+            __html: `(function(){try{var d=document.documentElement,t=localStorage.getItem("theme");if(t==="light"||t==="dark")d.setAttribute("data-theme",t);if(sessionStorage.getItem("booted")==="1")d.setAttribute("data-booted","")}catch(e){}})()`,
           }}
         />
       </head>
       <body className="min-h-full flex flex-col font-mono">
         {children}
         <ThemeSettings />
+        <BootScreen />
       </body>
     </html>
   );

@@ -15,12 +15,12 @@ export const about = {
     "AWS",
   ],
   yearsShipping: "10+",
-  obsession: "developer tools",
+  obsession: "ai engineering, cloud computing, and building scalable systems",
 };
 
 export const site = {
   brand: "rnzi.dev",
   owner: "Reence David",
   available: true,
-  email: "reence.david@example.com",
+  email: "david.reence@gmail.com",
 };

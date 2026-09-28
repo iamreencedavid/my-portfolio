@@ -15,13 +15,22 @@ function buildLines(): Token[][] {
     ["string", quote(value)],
   ];
 
+  // Same as `variable`, but the URL inside the quotes opens in a new tab.
+  const linkVariable = (name: string, url: string): Token[] => [
+    ["ident", name],
+    ["plain", "="],
+    ["string", '"'],
+    ["string", url, url],
+    ["string", '"'],
+  ];
+
   return [
     [["comment", "#!/bin/bash"]],
     [["comment", `# ${contact.tagline}`]],
     [],
     variable("EMAIL", site.email),
-    variable("GITHUB", contact.github),
-    variable("LINKEDIN", contact.linkedin),
+    linkVariable("GITHUB", contact.github),
+    linkVariable("LINKEDIN", contact.linkedin),
     [],
     [
       ["keyword", "echo "],
