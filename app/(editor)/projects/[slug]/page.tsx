@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { site } from "@/content/about";
 import { projects } from "@/content/projects";
 import { Terminal } from "../../../_components/code";
 import { icons } from "../../../_components/icons";
@@ -10,6 +11,7 @@ import {
   pillIdle,
   projectHref,
 } from "../../../_components/project";
+import { pageMetadata } from "../../../_components/seo";
 
 // Only the projects in content/projects.ts exist; anything else is a 404.
 export const dynamicParams = false;
@@ -22,7 +24,12 @@ export async function generateMetadata({
   params,
 }: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const { slug } = await params;
-  return { title: `${slug}.md` };
+  const p = projects.items.find((item) => item.slug === slug);
+  return pageMetadata({
+    title: `${slug}.md`,
+    description: p?.description ?? site.description,
+    path: projectHref(slug),
+  });
 }
 
 export default async function ProjectPage({

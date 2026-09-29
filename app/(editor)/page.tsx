@@ -1,4 +1,5 @@
 import { about, site } from "@/content/about";
+import { contact } from "@/content/contact";
 import {
   chunk,
   CodeView,
@@ -8,6 +9,7 @@ import {
   type Token,
 } from "../_components/code";
 import { icons } from "../_components/icons";
+import { personJsonLd } from "../_components/seo";
 
 function buildLines(): Token[][] {
   const field = (key: string, value: string): Token[] => [
@@ -81,9 +83,18 @@ function buildLines(): Token[][] {
 // Static content: build the lines once, not on every render.
 const lines = buildLines();
 
+// Person structured data for Google; `<` escaped so the JSON can't close the tag.
+const jsonLd = JSON.stringify(
+  personJsonLd([contact.github, contact.linkedin]),
+).replace(/</g, "\\u003c");
+
 export default function About() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
+      />
       <CodeView lines={lines} />
       <Terminal
         command="npm run hire-me"

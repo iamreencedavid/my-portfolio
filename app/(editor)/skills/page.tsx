@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { skills } from "@/content/skills";
+import { pageMetadata } from "../../_components/seo";
 import {
   chunk,
   CodeView,
@@ -9,9 +10,12 @@ import {
   type Token,
 } from "../../_components/code";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "skills.json",
-};
+  description:
+    "Languages, frameworks, databases and DevOps tools Reence David works with.",
+  path: "/skills",
+});
 
 function buildLines(): Token[][] {
   const { languages, ...groups } = skills;

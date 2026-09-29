@@ -4,10 +4,14 @@ import { projects } from "@/content/projects";
 import { Terminal } from "../../_components/code";
 import { icons } from "../../_components/icons";
 import { external, projectHref } from "../../_components/project";
+import { pageMetadata } from "../../_components/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "PROJECT REPO",
-};
+  description:
+    "Selected work by Reence David, from e-commerce to fintech platforms.",
+  path: "/projects",
+});
 
 export default function Projects() {
   const { items, sort } = projects;

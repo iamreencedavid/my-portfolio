@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
-import { site } from "@/content/about";
+import { about, site } from "@/content/about";
+import { pageMetadata } from "./_components/seo";
 import { BootScreen } from "./_components/boot-screen";
 import { ThemeSettings } from "./_components/theme-settings";
 import "./globals.css";
@@ -16,9 +17,21 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  // Pages set just their file name, e.g. "skills.json · rnzi.dev".
-  title: { default: site.brand, template: `%s · ${site.brand}` },
-  description: "Portfolio of a full-stack engineer building developer tools.",
+  ...pageMetadata({ description: site.description, path: "/" }),
+  metadataBase: new URL(site.url),
+  // Pages set just their file name, e.g. "skills.json · <site.title>".
+  title: { default: site.title, template: `%s · ${site.title}` },
+  applicationName: site.brand,
+  authors: [{ name: site.owner, url: site.url }],
+  creator: site.owner,
+  keywords: [
+    site.owner,
+    "Full-Stack Engineer",
+    "AI Engineer",
+    ...about.stack,
+    "Philippines",
+  ],
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

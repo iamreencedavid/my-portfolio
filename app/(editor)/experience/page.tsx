@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { experience } from "@/content/experience";
+import { pageMetadata } from "../../_components/seo";
 import { CodeView, Terminal, type Token } from "../../_components/code";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "experience.md",
-};
+  description:
+    "Reence David's career: senior full-stack roles at Officeworks, Emersion and Digital Central.",
+  path: "/experience",
+});
 
 // Splits "a **b** `c`" into plain/bold/inline tokens, keeping the markers.
 function inlineMd(text: string): Token[] {

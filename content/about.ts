@@ -22,6 +22,12 @@ export const about = {
 export const site = {
   brand: "rnzi.dev",
   owner: "Reence David",
+  // Browser tab title; sub-pages show "skills.json · <title>".
+  title: "Reence David - Personal Portfolio",
+  // Search engines and link previews. Keep the description under ~155 chars.
+  url: "https://www.rnzi.dev",
+  description:
+    "Full-Stack Engineer with 10+ years building scalable, reliable apps in React, TypeScript, Node.js, PHP and Python, plus cloud, DevOps and system design.",
   available: true,
   email: "david.reence@gmail.com",
 };

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { site } from "@/content/about";
 import { contact } from "@/content/contact";
+import { pageMetadata } from "../../_components/seo";
 import { CodeView, quote, Terminal, type Token } from "../../_components/code";
 import { ContactForm } from "../../_components/contact-form";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "contact.sh",
-};
+  description:
+    "Get in touch with Reence David: email, GitHub, LinkedIn and résumé.",
+  path: "/contact",
+});
 
 function buildLines(): Token[][] {
   const variable = (name: string, value: string): Token[] => [
