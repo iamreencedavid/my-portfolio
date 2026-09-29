@@ -13,6 +13,7 @@ export const about = {
     "PostgreSQL",
     "Docker",
     "AWS",
+    "System Design",
   ],
   yearsShipping: "10+",
   obsession: "ai engineering, cloud computing, and building scalable systems",

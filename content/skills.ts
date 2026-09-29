@@ -8,6 +8,7 @@ export const skills = {
     PHP: 5,
     Python: 4,
     SQL: 5,
+    "System Design": 4,
   } as Record<string, number>,
   management: [
     "Leading Teams",

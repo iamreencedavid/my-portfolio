@@ -65,7 +65,7 @@ export default function Skills() {
     <>
       <CodeView lines={lines} />
       <Terminal command="jq '.ai-engineering | length'">
-        {skills.devops.length} <span className="text-muted">— and growing</span>
+        <span className="text-muted">— and growing</span>
       </Terminal>
     </>
   );
