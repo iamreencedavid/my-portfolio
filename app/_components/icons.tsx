@@ -264,6 +264,118 @@ export const icons = {
       <path d="M8 2v8M4.5 6.5 8 10l3.5-3.5M2.5 13.5h11" />
     </svg>
   ),
+  // Feature chips on project pages (see `FeatureIcon` in content/projects.ts).
+  bolt: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M9 1.5 3.5 9H8l-1 5.5L12.5 7H8z" />
+    </svg>
+  ),
+  realtime: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M1.5 8h3l1.5-4 3 8 1.5-4h4" />
+    </svg>
+  ),
+  cube: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M8 1.5 14 5v6l-6 3.5L2 11V5z" />
+      <path d="M2 5l6 3.5L14 5M8 8.5v6" />
+    </svg>
+  ),
+  chart: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M2 10.5 5.5 7l2.5 2.5L14 4M2 13.5h12" />
+    </svg>
+  ),
+  shield: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M8 1.5 13.5 3.5V8c0 3-2.5 5.5-5.5 6.5C5 13.5 2.5 11 2.5 8V3.5z" />
+      <path d="m5.5 8 1.8 1.8L10.5 6.5" />
+    </svg>
+  ),
+  users: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      aria-hidden
+    >
+      <circle cx="6" cy="5.5" r="2.5" />
+      <path d="M1.5 14a4.5 4.5 0 0 1 9 0M10.5 3.2a2.5 2.5 0 0 1 0 4.6M12 9.8a4.5 4.5 0 0 1 2.5 4.2" />
+    </svg>
+  ),
+  arrowLeft: (
+    <svg
+      className="h-[0.9em] w-[0.9em] shrink-0"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M13 8H3M7 4 3 8l4 4" />
+    </svg>
+  ),
+  arrowRight: (
+    <svg
+      className="h-[0.9em] w-[0.9em] shrink-0"
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M3 8h10M9 4l4 4-4 4" />
+    </svg>
+  ),
   moon: (
     <svg
       className="h-3.5 w-3.5"

@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { projects } from "@/content/projects";
 import { Terminal } from "../../_components/code";
 import { icons } from "../../_components/icons";
+import { external, projectHref } from "../../_components/project";
 
 export const metadata: Metadata = {
   title: "PROJECT REPO",
-};
-
-const external = {
-  target: "_blank",
-  rel: "noopener noreferrer",
-  className:
-    "inline-flex items-center gap-1 text-accent hover:underline underline-offset-4 focus-ring",
 };
 
 export default function Projects() {
@@ -61,8 +56,11 @@ export default function Projects() {
                       first ? "" : "border-t border-border pt-5"
                     }`}
                   >
-                    <div
+                    {/* Same destination as the name; mouse-only, so it's skipped by keyboard and screen readers. */}
+                    <Link
+                      href={projectHref(p.slug)}
                       aria-hidden
+                      tabIndex={-1}
                       className={`hidden h-14 w-14 shrink-0 items-center justify-center rounded-lg text-2xl sm:flex lg:h-16 lg:w-16 ${
                         first
                           ? "bg-selected text-accent"
@@ -70,11 +68,16 @@ export default function Projects() {
                       }`}
                     >
                       {icons[p.icon]}
-                    </div>
+                    </Link>
 
                     <div className="min-w-0 flex-1">
                       <h3 className="font-medium text-text uppercase">
-                        {p.name}
+                        <Link
+                          href={projectHref(p.slug)}
+                          className="focus-ring rounded underline-offset-4 hover:underline"
+                        >
+                          {p.name}
+                        </Link>
                       </h3>
                       <p className="mt-1 text-muted">{p.description}</p>
                       <p className="mt-2 text-syn-literal">
@@ -110,7 +113,13 @@ export default function Projects() {
       <Terminal cwd="projects" command="ls">
         <p className="flex flex-wrap gap-x-[2ch] text-syn-ident">
           {items.map((p) => (
-            <span key={p.slug}>{p.name}/</span>
+            <Link
+              key={p.slug}
+              href={projectHref(p.slug)}
+              className="focus-ring rounded underline-offset-4 hover:underline"
+            >
+              {p.name}/
+            </Link>
           ))}
         </p>
       </Terminal>

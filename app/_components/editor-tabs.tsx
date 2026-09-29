@@ -4,8 +4,15 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { site } from "@/content/about";
-import { fileForPath, files, type FileName } from "./files";
+import {
+  fileForName,
+  fileForPath,
+  files,
+  mainFiles,
+  projectsFile,
+} from "./files";
 import { icons } from "./icons";
+import { pill, pillActive, pillIdle } from "./project";
 
 export function WindowTitle() {
   const active = fileForPath(usePathname());
@@ -16,10 +23,12 @@ export function WindowTitle() {
   );
 }
 
-// Phone tabs: every file as a pill, always shown, so they double as navigation.
+// Phone tabs: every main file as a pill, always shown, so they double as
+// navigation. A project page highlights its parent, PROJECT REPO.
 export function MobileTabs() {
   const pathname = usePathname();
-  const active = fileForPath(pathname);
+  const file = fileForPath(pathname);
+  const active = file?.project ? projectsFile : file;
   const activeRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
@@ -31,19 +40,15 @@ export function MobileTabs() {
       aria-label="Pages"
       className="flex gap-2 overflow-x-auto border-b border-border px-5 pt-1 pb-3 scrollbar-none md:hidden"
     >
-      {files.map((f) => {
+      {mainFiles.map((f) => {
         const isActive = f.name === active?.name;
         return (
           <Link
             key={f.name}
             ref={isActive ? activeRef : undefined}
             href={f.href}
-            aria-current={isActive ? "page" : undefined}
-            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[13px] transition-colors focus-ring ${
-              isActive
-                ? "border-accent/40 bg-selected text-accent"
-                : "border-border text-text hover:bg-selected/50"
-            }`}
+            aria-current={f.href === pathname ? "page" : undefined}
+            className={`${pill} ${isActive ? pillActive : pillIdle}`}
           >
             {f.name}
           </Link>
@@ -58,20 +63,26 @@ export function EditorTabs() {
   const router = useRouter();
   const active = fileForPath(pathname);
 
-  const [open, setOpen] = useState<FileName[]>(() =>
+  const [open, setOpen] = useState<string[]>(() =>
     active && active.name !== files[0].name
       ? [files[0].name, active.name]
       : [files[0].name],
   );
   const [lastPath, setLastPath] = useState(pathname);
 
-  // Visiting a file opens its tab. Done during render so there's no flash.
+  // Visiting a file opens its tab; a project replaces any other project tab.
+  // Done during render so there's no flash.
   if (pathname !== lastPath) {
     setLastPath(pathname);
-    if (active && !open.includes(active.name)) setOpen([...open, active.name]);
+    if (active && !open.includes(active.name)) {
+      const keep = active.project
+        ? open.filter((n) => !fileForName(n)?.project)
+        : open;
+      setOpen([...keep, active.name]);
+    }
   }
 
-  const close = (name: FileName) => {
+  const close = (name: string) => {
     setOpen(open.filter((n) => n !== name));
     if (active?.name === name) router.push(files[0].href);
   };
