@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { site } from "@/content/about";
 import { projects } from "@/content/projects";
 import { Terminal } from "../../_components/code";
 import { icons } from "../../_components/icons";
 
 export const metadata: Metadata = {
-  title: `PROJECT REPO · ${site.brand}`,
+  title: "PROJECT REPO",
 };
 
 const external = {
   target: "_blank",
   rel: "noopener noreferrer",
   className:
-    "inline-flex items-center gap-1 text-accent hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-accent",
+    "inline-flex items-center gap-1 text-accent hover:underline underline-offset-4 focus-ring",
 };
 
 export default function Projects() {
@@ -25,7 +24,7 @@ export default function Projects() {
         <div className="rounded-xl border border-border p-5 text-[13px] sm:text-sm lg:p-6 lg:text-base">
           <header className="mb-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
             <h2 className="font-sans text-2xl font-semibold tracking-tight text-text lg:text-3xl">
-              Selected work
+              Fulfilled work
             </h2>
             <p className="text-xs text-muted sm:text-sm">
               {items.length} repos · {sort}
@@ -74,7 +73,9 @@ export default function Projects() {
                     </div>
 
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-medium text-text">{p.name}/</h3>
+                      <h3 className="font-medium text-text uppercase">
+                        {p.name}
+                      </h3>
                       <p className="mt-1 text-muted">{p.description}</p>
                       <p className="mt-2 text-syn-literal">
                         {p.tags.join(" · ")}
@@ -106,17 +107,13 @@ export default function Projects() {
         </div>
       </div>
 
-      <Terminal
-        cwd="projects"
-        command="ls"
-        output={
-          <p className="flex flex-wrap gap-x-[2ch] text-syn-ident">
-            {items.map((p) => (
-              <span key={p.slug}>{p.name}/</span>
-            ))}
-          </p>
-        }
-      />
+      <Terminal cwd="projects" command="ls">
+        <p className="flex flex-wrap gap-x-[2ch] text-syn-ident">
+          {items.map((p) => (
+            <span key={p.slug}>{p.name}/</span>
+          ))}
+        </p>
+      </Terminal>
     </>
   );
 }

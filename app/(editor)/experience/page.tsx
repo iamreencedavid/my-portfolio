@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { site } from "@/content/about";
 import { experience } from "@/content/experience";
 import { CodeView, Terminal, type Token } from "../../_components/code";
 
 export const metadata: Metadata = {
-  title: `experience.md · ${site.brand}`,
+  title: "experience.md",
 };
 
 // Splits "a **b** `c`" into plain/bold/inline tokens, keeping the markers.
@@ -36,18 +35,19 @@ function buildLines(): Token[][] {
   ];
 }
 
+const lines = buildLines();
+
 export default function Experience() {
   return (
     <>
-      <CodeView lines={buildLines()} />
-      <Terminal
-        command="git log --oneline career"
-        output={experience.careerLog.map(({ hash, message }) => (
+      <CodeView lines={lines} />
+      <Terminal command="git log --oneline career">
+        {experience.careerLog.map(({ hash, message }) => (
           <p key={hash}>
             <span className="text-syn-literal">{hash}</span> {message}
           </p>
         ))}
-      />
+      </Terminal>
     </>
   );
 }

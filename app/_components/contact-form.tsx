@@ -28,7 +28,7 @@ const prompts = [
 ] as const;
 
 const button =
-  "inline-flex items-center gap-2.5 rounded-lg border border-border px-4 py-2 text-text transition-colors hover:bg-selected/50 focus-visible:outline-2 focus-visible:outline-accent";
+  "inline-flex items-center gap-2.5 rounded-lg border border-border px-4 py-2 text-text transition-colors hover:bg-selected/50 focus-ring";
 
 type Status = { tone: "ok" | "error"; text: string } | null;
 

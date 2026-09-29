@@ -3,7 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { site } from "@/content/about";
 import { boot } from "@/content/boot";
-import { icons } from "./_components/icons";
+import { WindowDots } from "./chrome";
 
 // figlet "Rectangles": < rnzi.dev >
 const LOGO = String.raw`   __                                 __
@@ -39,32 +39,49 @@ const readBooted = () => {
   }
 };
 
-function Illustration() {
-  return (
-    <pre
-      aria-hidden
-      className="self-center text-[11px] leading-tight text-accent md:self-auto md:text-xs lg:text-sm"
-    >
-      {DOC.map((line, i) => (
-        <div key={i}>
-          {line.split(/(·)/).map((part, j) =>
-            part === "·" ? (
-              <span
-                key={j}
-                className="animate-pulse text-accent/70 motion-reduce:animate-none"
-                style={{ animationDelay: `${((i * 7 + j * 3) % 10) * 150}ms` }}
-              >
-                ·
-              </span>
-            ) : (
-              part
-            ),
-          )}
-        </div>
-      ))}
-    </pre>
-  );
-}
+// Static JSX, hoisted so progress ticks don't rebuild it.
+const illustration = (
+  <pre
+    aria-hidden
+    className="self-center text-[11px] leading-tight text-accent md:self-auto md:text-xs lg:text-sm"
+  >
+    {DOC.map((line, i) => (
+      <div key={i}>
+        {line.split(/(·)/).map((part, j) =>
+          part === "·" ? (
+            <span
+              key={j}
+              className="animate-pulse text-accent/70 motion-reduce:animate-none"
+              style={{ animationDelay: `${((i * 7 + j * 3) % 10) * 150}ms` }}
+            >
+              ·
+            </span>
+          ) : (
+            part
+          ),
+        )}
+      </div>
+    ))}
+  </pre>
+);
+
+const logo = (
+  <pre
+    role="img"
+    aria-label={site.brand}
+    className="mt-8 overflow-hidden text-[3.3vw] leading-tight font-semibold text-accent sm:text-sm md:mt-6 lg:text-base xl:text-lg"
+  >
+    {LOGO}
+  </pre>
+);
+
+const user = site.owner.toLowerCase().replace(/\s+/g, "-");
+
+const remember = () => {
+  try {
+    sessionStorage.setItem(STORAGE_KEY, "1");
+  } catch {}
+};
 
 // Terminal-style splash shown once per browser session, over the site.
 export function BootScreen() {
@@ -107,16 +124,13 @@ export function BootScreen() {
   // Remember for this session, then unmount after the fade.
   useEffect(() => {
     if (phase !== "fade") return;
-    try {
-      sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch {}
+    remember();
     const t = setTimeout(() => setPhase("gone"), FADE_MS);
     return () => clearTimeout(t);
   }, [phase]);
 
   if (booted || phase === "gone") return null;
 
-  const user = site.owner.toLowerCase().replace(/\s+/g, "-");
   const complete = progress >= 100;
   const filled = Math.round((progress / 100) * SEGMENTS);
 
@@ -131,11 +145,7 @@ export function BootScreen() {
       <div className="flex min-h-full w-full flex-col md:min-h-0 md:max-w-6xl md:overflow-hidden md:rounded-xl md:border md:border-border md:bg-window md:shadow-2xl md:shadow-black/30">
         {/* Title bar */}
         <div className="hidden items-center gap-4 border-b border-border px-5 py-3.5 md:flex">
-          <div className="flex gap-2" aria-hidden>
-            <span className="h-3.5 w-3.5 rounded-full bg-light-close" />
-            <span className="h-3.5 w-3.5 rounded-full bg-light-min" />
-            <span className="h-3.5 w-3.5 rounded-full bg-light-max" />
-          </div>
+          <WindowDots />
           <span className="truncate text-sm text-muted">
             {user}@portfolio ~
           </span>
@@ -148,19 +158,17 @@ export function BootScreen() {
               <span className="text-online">→</span>
               {boot.prompt}
             </p>
-            <pre
-              role="img"
-              aria-label={site.brand}
-              className="mt-8 overflow-hidden text-[3.3vw] leading-tight font-semibold text-accent sm:text-sm md:mt-6 lg:text-base xl:text-lg"
-            >
-              {LOGO}
-            </pre>
+            {logo}
             <p className="mt-6 text-base text-muted sm:text-xl lg:text-2xl">
               {boot.tagline}
             </p>
             <ul className="mt-6 space-y-2 text-[13px] sm:text-base lg:text-lg">
-              {boot.steps.map((step, i) => {
-                const done = progress >= ((i + 1) * 90) / boot.steps.length;
+              {/* Steps check off by 90%; the success line only at 100%. */}
+              {[...boot.steps, boot.done].map((step, i) => {
+                const last = i === boot.steps.length;
+                const done = last
+                  ? complete
+                  : progress >= ((i + 1) * 90) / boot.steps.length;
                 return (
                   <li key={step} className="flex gap-3">
                     <span
@@ -168,24 +176,26 @@ export function BootScreen() {
                     >
                       [{done ? "✓" : " "}]
                     </span>
-                    <span className={done ? "text-text" : "text-muted"}>
+                    <span
+                      className={
+                        done
+                          ? last
+                            ? "text-online"
+                            : "text-text"
+                          : "text-muted"
+                      }
+                    >
                       {step}
                     </span>
                   </li>
                 );
               })}
-              {complete && (
-                <li className="flex gap-3 text-online">
-                  <span>[✓]</span>
-                  {boot.done}
-                </li>
-              )}
             </ul>
           </div>
 
           {/* Right: illustration and progress */}
           <div className="flex flex-col items-stretch justify-center md:items-center md:border-l md:border-border md:pl-12 lg:pl-16">
-            <Illustration />
+            {illustration}
             <div
               className="mt-8 flex w-full gap-1 md:w-auto md:gap-1.5"
               aria-hidden

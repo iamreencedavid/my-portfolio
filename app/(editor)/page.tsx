@@ -2,6 +2,7 @@ import { about, site } from "@/content/about";
 import {
   chunk,
   CodeView,
+  literalList,
   quote,
   Terminal,
   type Token,
@@ -41,10 +42,7 @@ function buildLines(): Token[][] {
 
   const stackRows = chunk(about.stack, 3).map((row): Token[] => [
     ["plain", "    "],
-    ...row.flatMap((item, i): Token[] => [
-      ...(i > 0 ? [["plain", ", "] as Token] : []),
-      ["literal", quote(item)],
-    ]),
+    ...literalList(row),
     ["plain", ","],
   ]);
 
@@ -80,10 +78,13 @@ function buildLines(): Token[][] {
   ];
 }
 
+// Static content: build the lines once, not on every render.
+const lines = buildLines();
+
 export default function About() {
   return (
     <>
-      <CodeView lines={buildLines()} />
+      <CodeView lines={lines} />
       <Terminal
         command="npm run hire-me"
         note="— opening mail…"
@@ -92,7 +93,7 @@ export default function About() {
         {/* Phones get a proper tap target; desktop keeps the prompt link. */}
         <a
           href={`mailto:${site.email}`}
-          className="mt-2 flex w-full items-center justify-center gap-2.5 rounded-lg border border-border py-3 text-text transition-colors hover:bg-selected/50 focus-visible:outline-2 focus-visible:outline-accent md:hidden"
+          className="mt-2 flex w-full items-center justify-center gap-2.5 rounded-lg border border-border py-3 text-text transition-colors hover:bg-selected/50 focus-ring md:hidden"
         >
           {icons.mail}
           Get in touch

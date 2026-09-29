@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { site } from "@/content/about";
-import { BootScreen } from "./boot-screen";
-import { ThemeSettings } from "./theme-settings";
+import { BootScreen } from "./_components/boot-screen";
+import { ThemeSettings } from "./_components/theme-settings";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,7 +16,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: site.brand,
+  // Pages set just their file name, e.g. "skills.json · rnzi.dev".
+  title: { default: site.brand, template: `%s · ${site.brand}` },
   description: "Portfolio of a full-stack engineer building developer tools.",
 };
 

@@ -33,12 +33,33 @@ export const experience = {
       ],
     },
     {
-      title: "Regional Software Developer ",
+      title: "Regional Software Developer",
       company: "CXC Global",
       period: "2016 — 2017",
       location: "Clark Pampanga | Office",
       highlights: [
         "Real estate and property management",
+        "Stack:  `Laravel` `Codeigniter` `PHP` `Wordpress`",
+      ],
+    },
+    {
+      title: "Mid Level Software Engineer",
+      company: "Cloudstaff",
+      period: "2014 — 2016",
+      location: "Clark Pampanga | Office",
+      highlights: [
+        "Developed a scanning web application and Practice Agent Management Software (PAMS) for an Australian client, significantly improving processing efficiency",
+        "Managed server administration tasks, ensuring system stability and optimal performance across applications",
+        "Stack:  `Laravel` `Codeigniter` `PHP` `Wordpress`",
+      ],
+    },
+    {
+      title: "Web Developer",
+      company: "BMWare",
+      period: "2014 — 2016",
+      location: "San Fernando Pampanga | Office",
+      highlights: [
+        "Developed web projects to facilitate client data gathering, enhancing engagement and improving client relations",
         "Stack:  `Laravel` `Codeigniter` `PHP` `Wordpress`",
       ],
     },

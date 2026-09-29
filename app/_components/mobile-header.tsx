@@ -1,19 +1,19 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
-import { site } from "@/content/about";
-import { ThemeSwitch } from "../theme-settings";
+import { useState } from "react";
+import { Brand } from "./chrome";
 import { Explorer } from "./explorer";
-import { files } from "./files";
 import { icons } from "./icons";
+import { ThemeSwitch } from "./theme-settings";
+import { useDismiss } from "./use-dismiss";
 
 // Phone-sized header: brand on the left, a menu that drops the explorer down.
 export function MobileHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [lastPath, setLastPath] = useState(pathname);
+  useDismiss(open, setOpen);
 
   // Picking a file closes the menu. Done during render so there's no flash.
   if (pathname !== lastPath) {
@@ -21,33 +21,11 @@ export function MobileHeader() {
     setOpen(false);
   }
 
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [open]);
-
   return (
     <>
       <header className="relative z-40 flex items-start justify-between gap-4 bg-window px-5 pt-5 pb-3 md:hidden">
         <div>
-          <h1 className="font-sans text-3xl font-medium tracking-tight text-text">
-            <Link
-              href={files[0].href}
-              className="rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-            >
-              {site.brand}
-            </Link>
-          </h1>
-          {site.available && (
-            <p className="mt-1 flex items-center gap-2 text-sm text-online">
-              <span className="h-2 w-2 rounded-full bg-online" aria-hidden />
-              available for work
-            </p>
-          )}
+          <Brand size="sm" />
         </div>
         <button
           type="button"
@@ -55,7 +33,7 @@ export function MobileHeader() {
           aria-expanded={open}
           aria-controls="mobile-drawer"
           onClick={() => setOpen(!open)}
-          className="-mr-2 flex h-11 w-11 items-center justify-center rounded-lg text-text transition-colors hover:bg-selected/50 focus-visible:outline-2 focus-visible:outline-accent"
+          className="focus-ring -mr-2 flex h-11 w-11 items-center justify-center rounded-lg text-text transition-colors hover:bg-selected/50"
         >
           {open ? <span className="text-2xl">{icons.close}</span> : icons.menu}
         </button>

@@ -39,7 +39,7 @@ export function MobileTabs() {
             ref={isActive ? activeRef : undefined}
             href={f.href}
             aria-current={isActive ? "page" : undefined}
-            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[13px] transition-colors focus-visible:outline-2 focus-visible:outline-accent ${
+            className={`shrink-0 rounded-full border px-3.5 py-1.5 text-[13px] transition-colors focus-ring ${
               isActive
                 ? "border-accent/40 bg-selected text-accent"
                 : "border-border text-text hover:bg-selected/50"
@@ -97,7 +97,7 @@ export function EditorTabs() {
               <Link
                 href={f.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`py-3 pl-5 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent lg:py-4 lg:pl-7 ${
+                className={`py-3 pl-5 focus-ring focus-visible:-outline-offset-2 lg:py-4 lg:pl-7 ${
                   f.closable ? "pr-2" : "pr-5 lg:pr-7"
                 }`}
               >
@@ -108,7 +108,7 @@ export function EditorTabs() {
                   type="button"
                   aria-label={`Close ${f.name}`}
                   onClick={() => close(f.name)}
-                  className="mr-3 flex h-[1.5em] w-[1.5em] items-center justify-center rounded text-muted hover:bg-border hover:text-text focus-visible:outline-2 focus-visible:outline-accent lg:mr-4"
+                  className="mr-3 flex h-[1.5em] w-[1.5em] items-center justify-center rounded text-muted hover:bg-border hover:text-text focus-ring lg:mr-4"
                 >
                   {icons.close}
                 </button>

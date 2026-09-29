@@ -39,6 +39,17 @@ const tokenClass: Record<Kind, string> = {
 
 export const quote = (s: string) => `"${s}"`;
 
+// `"a", "b", "c"` as tokens: quoted literals joined by commas.
+export const literalList = (items: string[]): Token[] =>
+  items.flatMap((item, i): Token[] =>
+    i > 0
+      ? [
+          ["plain", ", "],
+          ["literal", quote(item)],
+        ]
+      : [["literal", quote(item)]],
+  );
+
 export function chunk<T>(items: T[], size: number): T[][] {
   const rows: T[][] = [];
   for (let i = 0; i < items.length; i += size)
@@ -94,7 +105,7 @@ export function CodeView({
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${tokenClass[kind]} underline decoration-current/40 underline-offset-4 hover:decoration-current focus-visible:outline-2 focus-visible:outline-accent`}
+                      className={`${tokenClass[kind]} underline decoration-current/40 underline-offset-4 hover:decoration-current focus-ring`}
                     >
                       {text}
                     </a>
@@ -124,7 +135,6 @@ export function Terminal({
   cwd = "~",
   note,
   href,
-  output,
   label,
   children,
 }: {
@@ -132,7 +142,6 @@ export function Terminal({
   cwd?: string;
   note?: string;
   href?: string;
-  output?: ReactNode;
   label?: string;
   children?: ReactNode;
 }) {
@@ -169,8 +178,8 @@ export function Terminal({
           {prompt}
         </p>
       )}
-      {output && <div className="mt-2 space-y-1 text-text">{output}</div>}
-      {children && <div className="mt-2">{children}</div>}
+      {/* Command output: text lines or interactive content. */}
+      {children && <div className="mt-2 space-y-1 text-text">{children}</div>}
     </div>
   );
 }

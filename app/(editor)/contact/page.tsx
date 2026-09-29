@@ -5,7 +5,7 @@ import { CodeView, quote, Terminal, type Token } from "../../_components/code";
 import { ContactForm } from "../../_components/contact-form";
 
 export const metadata: Metadata = {
-  title: `contact.sh · ${site.brand}`,
+  title: "contact.sh",
 };
 
 function buildLines(): Token[][] {
@@ -39,10 +39,12 @@ function buildLines(): Token[][] {
   ];
 }
 
+const lines = buildLines();
+
 export default function Contact() {
   return (
     <>
-      <CodeView lines={buildLines()} cursor={false} />
+      <CodeView lines={lines} cursor={false} />
       <Terminal command="./contact.sh" label="zsh">
         <ContactForm email={site.email} resume={contact.resume} />
       </Terminal>

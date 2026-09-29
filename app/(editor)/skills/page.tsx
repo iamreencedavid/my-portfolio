@@ -1,26 +1,21 @@
 import type { Metadata } from "next";
-import { site } from "@/content/about";
 import { skills } from "@/content/skills";
 import {
   chunk,
   CodeView,
+  literalList,
   quote,
   Terminal,
   type Token,
 } from "../../_components/code";
 
 export const metadata: Metadata = {
-  title: `skills.json · ${site.brand}`,
+  title: "skills.json",
 };
 
-const list = (items: string[]): Token[] =>
-  items.flatMap((item, i): Token[] => [
-    ...(i > 0 ? [["plain", ", "] as Token] : []),
-    ["literal", quote(item)],
-  ]);
-
 function buildLines(): Token[][] {
-  const langs = Object.entries(skills.languages);
+  const { languages, ...groups } = skills;
+  const langs = Object.entries(languages);
   const keyWidth = Math.max(...langs.map(([name]) => name.length + 3));
 
   // Long arrays wrap a few items per line, like a formatter would.
@@ -34,7 +29,7 @@ function buildLines(): Token[][] {
       ],
       ...rows.map((row, i): Token[] => [
         ["plain", "    "],
-        ...list(row),
+        ...literalList(row),
         ...(i < rows.length - 1 ? [["plain", ","] as Token] : []),
       ]),
       [["plain", "  ],"]],
@@ -57,29 +52,21 @@ function buildLines(): Token[][] {
       ["bar", String(level)],
     ]),
     [["plain", "  },"]],
-    ...arrayBlock("management", skills.management),
-    ...arrayBlock("frontend", skills.frontend),
-    ...arrayBlock("backend", skills.backend),
-    ...arrayBlock("databases", skills.databases),
-    ...arrayBlock("devops", skills.devops),
-    ...arrayBlock("ai", skills.ai),
+    // Every other group, in the order it appears in content/skills.ts.
+    ...Object.entries(groups).flatMap(([key, items]) => arrayBlock(key, items)),
     [["plain", "}"]],
   ];
 }
 
+const lines = buildLines();
+
 export default function Skills() {
   return (
     <>
-      <CodeView lines={buildLines()} />
-      <Terminal
-        command="jq '.devops | length'"
-        output={
-          <>
-            {skills.devops.length}{" "}
-            <span className="text-muted">— and growing</span>
-          </>
-        }
-      />
+      <CodeView lines={lines} />
+      <Terminal command="jq '.ai-engineering | length'">
+        {skills.devops.length} <span className="text-muted">— and growing</span>
+      </Terminal>
     </>
   );
 }

@@ -62,6 +62,27 @@
   --font-mono: var(--font-jetbrains-mono);
 }
 
+/* Keyboard focus outline shared by every interactive element. */
+@utility focus-ring {
+  @apply focus-visible:outline-2 focus-visible:outline-accent;
+}
+
+/* Small high-res laptops (e.g. a 14" 1920×1200 at 125–150% scaling) are wide
+   enough for the xl sizes but short, and the desktop layout fits one screen.
+   Scale all rem-based text and spacing down there; taller screens (16" MBP)
+   and phones are unchanged. */
+@media (min-width: 768px) and (max-height: 860px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 768px) and (max-height: 700px) {
+  html {
+    font-size: 13px;
+  }
+}
+
 body {
   background: var(--page);
   color: var(--text);
