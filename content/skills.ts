@@ -23,6 +23,8 @@ export const skills = {
     "CSS (Tailwind, shadcn/ui)",
     "Redux",
     "React Native",
+    "Expo",
+    "EAS",
   ],
   backend: [
     "Node.js",
@@ -33,6 +35,7 @@ export const skills = {
     "API Development (REST, GraphQL)",
     "Algolia",
     "OAuth2",
+    "Supabase",
   ],
   databases: [
     "Postgres",

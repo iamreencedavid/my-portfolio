@@ -11,6 +11,7 @@ import {
   pillIdle,
   projectHref,
 } from "../../../_components/project";
+import { Screenshots } from "../../../_components/screenshots";
 import { pageMetadata } from "../../../_components/seo";
 
 // Only the projects in content/projects.ts exist; anything else is a 404.
@@ -103,6 +104,42 @@ export default async function ProjectPage({
                   </li>
                 ))}
               </ul>
+            </section>
+          )}
+
+          {p.highlights && (
+            <section className="mt-6 border-t border-border pt-5">
+              <h3 className="mb-3 text-xs tracking-wider text-muted sm:text-sm">
+                FEATURES
+              </h3>
+              <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2 xl:grid-cols-3">
+                {p.highlights.map((group) => (
+                  <div key={group.title}>
+                    <h4 className="mb-2 font-medium text-text">
+                      {group.title}
+                    </h4>
+                    <ul className="space-y-1.5">
+                      {group.items.map((entry) => (
+                        <li key={entry} className="flex gap-2 text-text">
+                          <span className="text-syn-literal" aria-hidden>
+                            -
+                          </span>
+                          {entry}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {p.screenshots && (
+            <section className="mt-6 border-t border-border pt-5">
+              <h3 className="mb-3 text-xs tracking-wider text-muted sm:text-sm">
+                SCREENSHOTS
+              </h3>
+              <Screenshots items={p.screenshots} />
             </section>
           )}
 

@@ -1,12 +1,26 @@
-// Projects rendered on the PROJECT REPO page, listed under `projects/` in the
-// explorer (as `<slug>.md`), and each given its own page at /projects/<slug>.
+import type { StaticImageData } from "next/image";
+import dashboard from "@/public/projects/sas-attendance/dashboard.webp";
+import devices from "@/public/projects/sas-attendance/devices.webp";
+import kiosk from "@/public/projects/sas-attendance/kiosk.webp";
+import monitoring from "@/public/projects/sas-attendance/monitoring.webp";
+import payroll from "@/public/projects/sas-attendance/payroll.webp";
+import inventoryDashboard from "@/public/projects/sas-inventory/dashboard.webp";
+import inventoryExpenses from "@/public/projects/sas-inventory/expenses.webp";
+import inventoryLogin from "@/public/projects/sas-inventory/login.webp";
+import inventoryOrders from "@/public/projects/sas-inventory/orders.webp";
+import inventoryProducts from "@/public/projects/sas-inventory/products.webp";
+import inventorySales from "@/public/projects/sas-inventory/sales.webp";
+
+// Projects rendered on the PROJECT REPO page, each given its own page at
+// /projects/<slug> (opened as a `<slug>.md` tab).
 // Order here is the display order and the prev/next order.
 export type Project = {
   slug: string;
   name: string;
   description: string; // one-liner; the bold tagline on the project page
   tags: string[];
-  icon: "cart" | "cloud" | "building" | "home" | "spark" | "bed";
+  icon:
+    "cart" | "cloud" | "building" | "home" | "spark" | "bed" | "box" | "clock";
   live?: string; // shows "live ↗" when set
   code?: string; // repo URL; without it the project is marked "private"
   // Project page only; each part is hidden until set.
@@ -15,6 +29,10 @@ export type Project = {
   // Highlight chips, e.g. { icon: "bolt", label: "50ms ingest" }
   features?: { icon: FeatureIcon; label: string }[];
   skills?: string[]; // full skills list, shown under "Skills"
+  // Grouped bullets under "Features", one column per group.
+  highlights?: { title: string; items: string[] }[];
+  // Grid of images under "Screenshots"; each opens full size on click.
+  screenshots?: { src: StaticImageData; alt: string; caption: string }[];
 };
 
 export type FeatureIcon =
@@ -67,6 +85,184 @@ export const projects: { sort: string; items: Project[] } = {
         "Algolia",
         "AI(Gemini OpenAI Claude)",
         "Python (Programming Language)",
+      ],
+    },
+    {
+      slug: "sas-inventory",
+      name: "SAS Inventory Management",
+      description:
+        "Inventory management system for tracking stock, suppliers, sales and orders for Sip and Simple.",
+      tags: [
+        "next.js",
+        "react",
+        "supabase",
+        "typescript",
+        "tailwindcss",
+        "postgresql",
+      ],
+      icon: "box",
+      live: "https://sas-inventory-system.vercel.app",
+      // Draft bullets from the screenshots; edit freely.
+      highlights: [
+        {
+          title: "Dashboard",
+          items: [
+            "Today, week and month sales at a glance",
+            "Monthly net (sales − expenses) and over/short",
+            "Sales vs expenses chart for the last 30 days",
+            "Cash vs GCash split of sales",
+          ],
+        },
+        {
+          title: "Orders",
+          items: [
+            "Daily order list with order type and payment method",
+            "Subtotal, discount and total per order",
+            "Track refunded orders",
+            "Search by order no., staff or product",
+            "View the items in each order",
+          ],
+        },
+        {
+          title: "Sales",
+          items: [
+            "Record each day's sales by cash and GCash",
+            "Cash check: expected vs counted (over/short)",
+            "Running cash, GCash and pouch balances",
+            "Move money between cash, GCash and pouch",
+          ],
+        },
+        {
+          title: "Expenses",
+          items: [
+            "Log expenses with quantity and amount",
+            "Tag the source: counter, GCash or pouch",
+            "See who added and updated each entry",
+            "Daily totals and item search",
+          ],
+        },
+        {
+          title: "Pricing",
+          items: [
+            "Recipe-based product costing from ingredient prices",
+            "Selling price and profit margin per product and size",
+            "Manage ingredients, base sizes, categories and promos",
+            "Filter products by category and size",
+          ],
+        },
+        {
+          title: "OPEX",
+          items: [
+            "Track operating expenses",
+            "Forecast upcoming OPEX (OPEX Foresee)",
+          ],
+        },
+      ],
+      screenshots: [
+        {
+          src: inventoryLogin,
+          alt: "Admin sign-in page with the Sip & Simple Cafe logo",
+          caption: "Admin sign-in",
+        },
+        {
+          src: inventoryDashboard,
+          alt: "Dashboard with sales stat cards, a sales vs expenses chart and a cash vs GCash split",
+          caption: "Dashboard — sales vs expenses",
+        },
+        {
+          src: inventoryOrders,
+          alt: "Orders table with order type, payment and a refunded order",
+          caption: "Orders — daily orders and refunds",
+        },
+        {
+          src: inventorySales,
+          alt: "Recorded day with sales, expenses, cash check and balances",
+          caption: "Sales — daily close and cash check",
+        },
+        {
+          src: inventoryExpenses,
+          alt: "Expense log of items tagged counter or pouch",
+          caption: "Expenses — daily expense log",
+        },
+        {
+          src: inventoryProducts,
+          alt: "Product cards with recipe costing and selling price",
+          caption: "Products — recipe costing per product",
+        },
+      ],
+    },
+    {
+      slug: "sas-attendance",
+      name: "SAS Attendance Monitoring",
+      description:
+        "Attendance monitoring system for logging time-in/out and generating payroll for Sip and Simple.",
+      tags: [
+        "next.js",
+        "react",
+        "supabase",
+        "typescript",
+        "tailwindcss",
+        "postgresql",
+      ],
+      icon: "clock",
+      live: "https://sas-attendance-monitoring.vercel.app",
+      highlights: [
+        {
+          title: "Attendance Monitoring",
+          items: [
+            "Track staff time-in/time-out",
+            "Monitor late arrivals and missing punches",
+            "Track working hours and overtime",
+            "View real-time staff status",
+            "Add or manually edit attendance entries",
+          ],
+        },
+        {
+          title: "Payroll",
+          items: [
+            "Calculate basic daily pay",
+            "Calculate overtime pay",
+            "Account for late/early-leave deductions",
+            "Generate payroll summaries per employee/date range",
+            "Print or save payroll reports as PDF",
+          ],
+        },
+        {
+          title: "Leave Management",
+          items: [
+            "Manage vacation, sick, and other leave types",
+            "Track employees currently on leave",
+            "Record leave reasons and status",
+            "Include leave information in attendance/payroll records",
+          ],
+        },
+      ],
+      screenshots: [
+        {
+          src: kiosk,
+          alt: "Punch kiosk with a camera view, name and PIN fields, and Punch In and Punch Out buttons",
+          caption: "Punch kiosk — face capture + PIN",
+        },
+        {
+          src: dashboard,
+          alt: "Admin dashboard of staff cards marked Late, Done or On Leave",
+          caption: "Dashboard — live staff status",
+        },
+        {
+          src: monitoring,
+          alt: "Monitoring table of time-in and time-out photos, hours and overtime per staff",
+          caption: "Monitoring — time entries and overtime",
+        },
+        {
+          src: payroll,
+          alt: "Payroll panel with daily basic and overtime pay and a total",
+          caption: "Payroll — per-employee summary",
+        },
+        {
+          src: devices,
+          alt: "Devices list of browsers registered to open the punch page",
+          caption: "Devices — registered punch browsers",
+        },
       ],
     },
     {

@@ -7,7 +7,8 @@ import { projects } from "@/content/projects";
 import { hrefFor } from "./files";
 import { icons } from "./icons";
 
-type Item = { icon: ReactNode; label: string; href?: string };
+// `count` shows a muted number after the label, e.g. "projects 8".
+type Item = { icon: ReactNode; label: string; href?: string; count?: number };
 
 const item = (icon: ReactNode, label: string): Item => ({
   icon,
@@ -20,71 +21,44 @@ const srcFiles = [
   item(icons.braces, "skills.json"),
   item(icons.doc, "experience.md"),
 ];
-const projectFiles = projects.items.map((p) => item(icons.doc, `${p.slug}.md`));
+// A single row, not a folder, so the tree doesn't grow with each project.
+const projectsFolder: Item = {
+  icon: icons.folder,
+  label: "projects",
+  href: hrefFor("PROJECT REPO"),
+  count: projects.items.length,
+};
 const contactFile = item(icons.mail, "contact.sh");
-const projectsHref = hrefFor("PROJECT REPO");
 
 const rowState = (active: boolean) =>
   active ? "bg-selected text-accent" : "text-text";
 const hover = (active: boolean) => (active ? "" : "hover:bg-selected/50");
 
-// A folder row. With `href`, the label opens that page (and expands the folder)
-// while the chevron only toggles; without it, the whole row toggles.
+// A folder row; clicking it toggles its children.
 function Folder({
   label,
-  href,
-  active = false,
   defaultOpen = false,
   children,
 }: {
   label: string;
-  href?: string;
-  active?: boolean;
   defaultOpen?: boolean;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(defaultOpen);
-  const chevron = (
-    <span className={active ? "text-accent" : "text-muted"}>
-      {open ? icons.chevronDown : icons.chevronRight}
-    </span>
-  );
 
   return (
     <li>
-      {href ? (
-        <div
-          className={`flex items-center rounded-md transition-colors ${rowState(active)}`}
-        >
-          <button
-            type="button"
-            aria-expanded={open}
-            aria-label={`Toggle ${label}`}
-            onClick={() => setOpen(!open)}
-            className={`focus-ring rounded-md py-2 pr-3 pl-1 focus-visible:-outline-offset-2 ${hover(active)}`}
-          >
-            {chevron}
-          </button>
-          <Link
-            href={href}
-            aria-current={active ? "page" : undefined}
-            onClick={() => setOpen(true)}
-            className={`focus-ring flex-1 rounded-md py-2 pr-3 focus-visible:-outline-offset-2 ${hover(active)}`}
-          >
-            {label}
-          </Link>
-        </div>
-      ) : (
-        <button
-          type="button"
-          aria-expanded={open}
-          onClick={() => setOpen(!open)}
-          className="focus-ring flex w-full items-center gap-3 rounded-md py-2 pr-3 pl-1 text-left text-text transition-colors hover:bg-selected/50 focus-visible:-outline-offset-2"
-        >
-          {chevron}
-          {label}
-        </button>
-      )}
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen(!open)}
+        className="focus-ring flex w-full items-center gap-3 rounded-md py-2 pr-3 pl-1 text-left text-text transition-colors hover:bg-selected/50 focus-visible:-outline-offset-2"
+      >
+        <span className="text-muted">
+          {open ? icons.chevronDown : icons.chevronRight}
+        </span>
+        {label}
+      </button>
       {open && <ul className="mt-0.5 space-y-0.5">{children}</ul>}
     </li>
   );
@@ -94,6 +68,7 @@ function TreeItem({
   icon,
   label,
   href,
+  count,
   active,
   nested = false,
 }: Item & { active: boolean; nested?: boolean }) {
@@ -104,6 +79,11 @@ function TreeItem({
     <>
       <span className={active ? "text-accent" : "text-muted"}>{icon}</span>
       {label}
+      {count !== undefined && (
+        <span className={active ? "text-accent/70" : "text-muted"}>
+          {count}
+        </span>
+      )}
     </>
   );
 
@@ -124,7 +104,7 @@ function TreeItem({
   );
 }
 
-export function Explorer({ projectsOpen = true }: { projectsOpen?: boolean }) {
+export function Explorer() {
   const pathname = usePathname();
   const file = (f: Item, nested = true) => (
     <TreeItem
@@ -134,6 +114,10 @@ export function Explorer({ projectsOpen = true }: { projectsOpen?: boolean }) {
       active={f.href === pathname}
     />
   );
+  const projectsHref = projectsFolder.href;
+  // Project pages (/projects/<slug>) highlight their parent row.
+  const inProjects =
+    pathname === projectsHref || pathname.startsWith(`${projectsHref}/`);
 
   return (
     <nav aria-label="Explorer" className="mt-10 text-base lg:mt-14 lg:text-xl">
@@ -144,14 +128,7 @@ export function Explorer({ projectsOpen = true }: { projectsOpen?: boolean }) {
         <Folder label="src" defaultOpen>
           {srcFiles.map((f) => file(f))}
         </Folder>
-        <Folder
-          label="projects"
-          href={projectsHref}
-          active={projectsHref === pathname}
-          defaultOpen={projectsOpen}
-        >
-          {projectFiles.map((f) => file(f))}
-        </Folder>
+        <TreeItem {...projectsFolder} active={inProjects} />
         {file(contactFile, false)}
       </ul>
     </nav>

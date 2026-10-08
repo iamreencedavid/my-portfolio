@@ -43,7 +43,7 @@ export function MobileHeader() {
             id="mobile-drawer"
             className="absolute inset-x-0 top-full max-h-[75dvh] overflow-y-auto border-y border-border bg-window px-5 pb-6 [&>nav]:mt-2"
           >
-            <Explorer projectsOpen={false} />
+            <Explorer />
             <div className="mt-6 border-t border-border pt-5">
               <ThemeSwitch />
             </div>
