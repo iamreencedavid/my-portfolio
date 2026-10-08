@@ -4,6 +4,18 @@ import devices from "@/public/projects/sas-attendance/devices.webp";
 import kiosk from "@/public/projects/sas-attendance/kiosk.webp";
 import monitoring from "@/public/projects/sas-attendance/monitoring.webp";
 import payroll from "@/public/projects/sas-attendance/payroll.webp";
+import orderingLogin from "@/public/projects/sas-ordering/login.webp";
+import orderingMenu from "@/public/projects/sas-ordering/menu.webp";
+import orderingMenuFilter from "@/public/projects/sas-ordering/menu-filter.webp";
+import orderingCart from "@/public/projects/sas-ordering/cart.webp";
+import orderingPayment from "@/public/projects/sas-ordering/payment.webp";
+import orderingComplete from "@/public/projects/sas-ordering/complete.webp";
+import orderingReceipt from "@/public/projects/sas-ordering/receipt.webp";
+import orderingSales from "@/public/projects/sas-ordering/sales.webp";
+import orderingOrder from "@/public/projects/sas-ordering/order.webp";
+import orderingRefund from "@/public/projects/sas-ordering/refund.webp";
+import orderingSync from "@/public/projects/sas-ordering/sync.webp";
+import orderingPrinter from "@/public/projects/sas-ordering/printer.webp";
 import inventoryDashboard from "@/public/projects/sas-inventory/dashboard.webp";
 import inventoryExpenses from "@/public/projects/sas-inventory/expenses.webp";
 import inventoryLogin from "@/public/projects/sas-inventory/login.webp";
@@ -20,7 +32,15 @@ export type Project = {
   description: string; // one-liner; the bold tagline on the project page
   tags: string[];
   icon:
-    "cart" | "cloud" | "building" | "home" | "spark" | "bed" | "box" | "clock";
+    | "cart"
+    | "cloud"
+    | "building"
+    | "home"
+    | "spark"
+    | "bed"
+    | "box"
+    | "clock"
+    | "phone";
   live?: string; // shows "live ↗" when set
   code?: string; // repo URL; without it the project is marked "private"
   // Project page only; each part is hidden until set.
@@ -29,8 +49,9 @@ export type Project = {
   // Highlight chips, e.g. { icon: "bolt", label: "50ms ingest" }
   features?: { icon: FeatureIcon; label: string }[];
   skills?: string[]; // full skills list, shown under "Skills"
-  // Grouped bullets under "Features", one column per group.
-  highlights?: { title: string; items: string[] }[];
+  // Grouped bullets under "Features", one column per group; an untitled
+  // group renders as a plain list.
+  highlights?: { title?: string; items: string[] }[];
   // Grid of images under "Screenshots"; each opens full size on click.
   screenshots?: { src: StaticImageData; alt: string; caption: string }[];
 };
@@ -85,6 +106,87 @@ export const projects: { sort: string; items: Project[] } = {
         "Algolia",
         "AI(Gemini OpenAI Claude)",
         "Python (Programming Language)",
+      ],
+    },
+    {
+      slug: "sas-ordering",
+      name: "SAS Ordering System",
+      description:
+        "Mobile ordering app for Sip and Simple, connected to the SAS Inventory System.",
+      tags: ["react native", "expo", "eas", "typescript"],
+      icon: "phone",
+      highlights: [
+        {
+          items: [
+            "Ability to place an order",
+            "Print receipt",
+            "Works offline",
+            "Sign in",
+            "Connected to the SAS Inventory System for updated data",
+          ],
+        },
+      ],
+      screenshots: [
+        {
+          src: orderingLogin,
+          alt: "Sign-in screen with email and password",
+          caption: "Sign-in",
+        },
+        {
+          src: orderingMenu,
+          alt: "Menu grid of coffee and frappe items with prices",
+          caption: "Menu by category",
+        },
+        {
+          src: orderingMenuFilter,
+          alt: "Menu filtered to the Frappe category",
+          caption: "Category filter",
+        },
+        {
+          src: orderingCart,
+          alt: "Order cart with item quantities and total",
+          caption: "Order cart",
+        },
+        {
+          src: orderingPayment,
+          alt: "Payment screen with dine-in or take-out, discounts, cash or G-Cash and change",
+          caption: "Payment — discounts, cash or G-Cash, change",
+        },
+        {
+          src: orderingComplete,
+          alt: "Sale completed screen with the receipt summary",
+          caption: "Sale completed",
+        },
+        {
+          src: orderingReceipt,
+          alt: "Virtual thermal printer preview of an 80 mm receipt",
+          caption: "Receipt preview — virtual thermal printer",
+        },
+        {
+          src: orderingSales,
+          alt: "Daily sales summary with orders waiting to sync",
+          caption: "Daily sales",
+        },
+        {
+          src: orderingOrder,
+          alt: "Order details with re-print, refund and delete actions",
+          caption: "Order details — re-print, refund, delete",
+        },
+        {
+          src: orderingRefund,
+          alt: "Refund confirmation dialog",
+          caption: "Refund confirmation",
+        },
+        {
+          src: orderingSync,
+          alt: "Sync settings to pull menu data and push saved orders",
+          caption: "Sync with SAS Inventory — pull menu, push orders",
+        },
+        {
+          src: orderingPrinter,
+          alt: "Bluetooth printer settings with paper size and auto-print",
+          caption: "Bluetooth printer settings",
+        },
       ],
     },
     {

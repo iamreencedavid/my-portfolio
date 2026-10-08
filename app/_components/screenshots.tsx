@@ -12,6 +12,9 @@ type Shot = NonNullable<Project["screenshots"]>[number];
 export function Screenshots({ items }: { items: Shot[] }) {
   const dialog = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState<Shot | null>(null);
+  // Phone screenshots are shown whole in a denser grid; wide ones are
+  // cropped to a uniform 16:9 so their captions line up.
+  const portrait = items.every((s) => s.src.height > s.src.width);
 
   const show = (shot: Shot) => {
     setOpen(shot);
@@ -20,7 +23,13 @@ export function Screenshots({ items }: { items: Shot[] }) {
 
   return (
     <>
-      <ul className="grid gap-4 sm:grid-cols-2">
+      <ul
+        className={`grid gap-4 ${
+          portrait
+            ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-4"
+            : "sm:grid-cols-2"
+        }`}
+      >
         {items.map((shot) => (
           <li key={shot.caption}>
             <button
@@ -32,8 +41,14 @@ export function Screenshots({ items }: { items: Shot[] }) {
                 src={shot.src}
                 alt={shot.alt}
                 placeholder="blur"
-                sizes="(min-width: 640px) 50vw, 100vw"
-                className="aspect-video w-full rounded-lg border border-border object-cover object-top transition-opacity group-hover:opacity-85"
+                sizes={
+                  portrait
+                    ? "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+                    : "(min-width: 640px) 50vw, 100vw"
+                }
+                className={`w-full rounded-lg border border-border transition-opacity group-hover:opacity-85 ${
+                  portrait ? "h-auto" : "aspect-video object-cover object-top"
+                }`}
               />
               <span className="mt-2 block text-muted">{shot.caption}</span>
             </button>

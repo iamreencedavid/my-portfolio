@@ -190,6 +190,21 @@ export const icons = {
       <path d="M2 4.5 8 7.5l6-3M8 7.5v7M5 3l6 3" />
     </svg>
   ),
+  phone: (
+    <svg
+      className={icon}
+      viewBox="0 0 16 16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="4" y="1.5" width="8" height="13" rx="1.5" />
+      <path d="M7 12.5h2" />
+    </svg>
+  ),
   clock: (
     <svg
       className={icon}
