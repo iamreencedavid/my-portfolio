@@ -23,7 +23,7 @@ import inventoryOrders from "@/public/projects/sas-inventory/orders.webp";
 import inventoryProducts from "@/public/projects/sas-inventory/products.webp";
 import inventorySales from "@/public/projects/sas-inventory/sales.webp";
 
-// Projects rendered on the PROJECT REPO page, each given its own page at
+// Projects rendered on the projects page, each given its own page at
 // /projects/<slug> (opened as a `<slug>.md` tab).
 // Order here is the display order and the prev/next order.
 export type Project = {

@@ -24,7 +24,7 @@ export function WindowTitle() {
 }
 
 // Phone tabs: every main file as a pill, always shown, so they double as
-// navigation. A project page highlights its parent, PROJECT REPO.
+// navigation. A project page highlights its parent, projects.
 export function MobileTabs() {
   const pathname = usePathname();
   const file = fileForPath(pathname);

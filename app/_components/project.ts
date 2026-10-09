@@ -1,4 +1,4 @@
-// Shared by the PROJECT REPO page, the project pages and the file registry.
+// Shared by the projects page, the project pages and the file registry.
 export const projectHref = (slug: string) => `/projects/${slug}`;
 
 // Props for an external link that opens in a new tab (e.g. "live ↗").

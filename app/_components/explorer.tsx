@@ -25,9 +25,10 @@ const srcFiles = [
 const projectsFolder: Item = {
   icon: icons.folder,
   label: "projects",
-  href: hrefFor("PROJECT REPO"),
+  href: hrefFor("projects"),
   count: projects.items.length,
 };
+const recommendationsFile = item(icons.users, "recommendations.md");
 const contactFile = item(icons.mail, "contact.sh");
 
 const rowState = (active: boolean) =>
@@ -129,6 +130,7 @@ export function Explorer() {
           {srcFiles.map((f) => file(f))}
         </Folder>
         <TreeItem {...projectsFolder} active={inProjects} />
+        {file(recommendationsFile, false)}
         {file(contactFile, false)}
       </ul>
     </nav>

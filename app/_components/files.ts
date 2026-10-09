@@ -13,7 +13,8 @@ export const mainFiles: File[] = [
   { name: "about.ts", href: "/", closable: false },
   { name: "skills.json", href: "/skills", closable: true },
   { name: "experience.md", href: "/experience", closable: true },
-  { name: "PROJECT REPO", href: "/projects", closable: true },
+  { name: "projects", href: "/projects", closable: true },
+  { name: "recommendations.md", href: "/recommendations", closable: true },
   { name: "contact.sh", href: "/contact", closable: true },
 ];
 
@@ -26,7 +27,7 @@ const projectFiles: File[] = projects.items.map((p) => ({
 
 export const files = [...mainFiles, ...projectFiles];
 
-// Mobile pills show only the main files; on a project page, PROJECT REPO.
+// Mobile pills show only the main files; on a project page, projects.
 export const projectsFile = mainFiles.find((f) => f.href === "/projects")!;
 
 export const fileForPath = (pathname: string) =>

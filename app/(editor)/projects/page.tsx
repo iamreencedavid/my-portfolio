@@ -7,7 +7,7 @@ import { external, projectHref } from "../../_components/project";
 import { pageMetadata } from "../../_components/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "PROJECT REPO",
+  title: "projects",
   description:
     "Selected work by Reence David, from e-commerce to fintech platforms.",
   path: "/projects",
