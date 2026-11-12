@@ -9,7 +9,7 @@ export const experience = {
       location: "Manila (Australia) | Hybrid",
       highlights: [
         "E-commerce platform development and maintenance",
-        "Stack: `Typescript` `React` `Node.js` `AWS` `Microservices`",
+        "Stack: `Typescript` `React` `Node.js` `C#` `.Net` `AWS` `Microservices`",
       ],
     },
     {
@@ -29,7 +29,7 @@ export const experience = {
       location: "Pampanga (Australia) | Office",
       highlights: [
         "Real estate and property management",
-        "Stack: `Typescript` `React` `Laravel`  `Codeigniter` `AWS` `PHP`",
+        "Stack: `Typescript` `React` `Laravel` `Codeigniter` `AWS` `PHP` `C#` `.Net`",
       ],
     },
     {
