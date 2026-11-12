@@ -8,7 +8,9 @@ export const experience = {
       period: "2024 — Present",
       location: "Manila (Australia) | Hybrid",
       highlights: [
-        "E-commerce platform development and maintenance",
+        "E-commerce platform building scalable features",
+        "Maintaining features and improvements to the existing platform",
+        "Collaborating with cross-functional teams to drive product development and it's software architecture",
         "Stack: `Typescript` `React` `Node.js` `C#` `.Net` `AWS` `Microservices`",
       ],
     },
@@ -18,7 +20,8 @@ export const experience = {
       period: "2022 — 2024",
       location: "Australia | Remote",
       highlights: [
-        "Fintech",
+        "Fintech platform building scalable features",
+        "Maintaining features and improvements to the existing platform",
         "Stack: `Typescript` `Vue.js` `Laravel` `AWS` `PHP`",
       ],
     },
@@ -29,6 +32,8 @@ export const experience = {
       location: "Pampanga (Australia) | Office",
       highlights: [
         "Real estate and property management",
+        "Leading a team of developers to deliver high-quality software solutions",
+        "Managing the whole software and collaborating with cross-functional teams who are using the software",
         "Stack: `Typescript` `React` `Laravel` `Codeigniter` `AWS` `PHP` `C#` `.Net`",
       ],
     },
@@ -38,7 +43,7 @@ export const experience = {
       period: "2016 — 2017",
       location: "Clark Pampanga | Office",
       highlights: [
-        "Real estate and property management",
+        "Real estate and property management and Finance software development",
         "Stack:  `Laravel` `Codeigniter` `PHP` `Wordpress`",
       ],
     },

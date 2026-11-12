@@ -57,7 +57,12 @@ export type Project = {
 };
 
 export type FeatureIcon =
-  "bolt" | "realtime" | "cube" | "chart" | "shield" | "users";
+  | "bolt"
+  | "realtime"
+  | "cube"
+  | "chart"
+  | "shield"
+  | "users";
 
 export const projects: { sort: string; items: Project[] } = {
   sort: "sorted by impact",
@@ -80,6 +85,8 @@ export const projects: { sort: string; items: Project[] } = {
       skills: [
         "React.js",
         "Node.js",
+        "C#",
+        ".Net",
         "Amazon Web Services (AWS)",
         "Jenkins",
         "Microservices",
