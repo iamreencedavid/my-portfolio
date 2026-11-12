@@ -8,5 +8,5 @@ export const contact = {
   replyNote: "Replies within 24h",
   // Google Drive direct-download link (file must be shared as "Anyone with the link").
   resume:
-    "https://drive.google.com/uc?export=download&id=1jOByjBk4gG1MR5UwHxrRZjd8afb_-oZv",
+    "https://drive.google.com/file/d/1Bx1UEQlOspMWz8tWtFRR5hUMQINIKNhO/view?usp=sharing",
 };
